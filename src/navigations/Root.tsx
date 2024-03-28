@@ -6,6 +6,7 @@ import ErrorOverlay from "../components/ErrorOverlay";
 import LoadingOverlay from "../components/LoadingOverlay";
 import { RootStackParams } from "./config";
 import Home from "../screens/Home";
+import TabNavigation from "./TabNavigation";
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
@@ -20,7 +21,7 @@ const Root = () => {
             headerShown: false,
           }}
         >
-          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="TabNavigation" component={TabNavigation} />
         </Stack.Navigator>
       </NavigationContainer>
     </>

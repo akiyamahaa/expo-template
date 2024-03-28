@@ -1,8 +1,11 @@
-import { NavigatorScreenParams } from "@react-navigation/native";
-
 export type RootStackParams = {
-  Home: undefined;
-  Search: undefined;
-  Favourite: undefined;
-  Profile: undefined;
+  TabNavigation: undefined;
 };
+
+export type BottomTabsParams = {
+  Home: undefined;
+  Quiz: undefined;
+  Practice: undefined;
+};
+
+

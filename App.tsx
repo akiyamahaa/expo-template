@@ -1,40 +1,19 @@
 import { StatusBar } from "expo-status-bar";
 import { Box, NativeBaseProvider } from "native-base";
-import { StyleSheet, Text, View } from "react-native";
+import { LogBox, StyleSheet, Text, View } from "react-native";
 import { Provider } from "react-redux";
-import * as SplashScreen from "expo-splash-screen";
 import store from "./src/store";
 import { useEffect } from "react";
-import {
-  useFonts,
-  Quicksand_300Light,
-  Quicksand_400Regular,
-  Quicksand_500Medium,
-  Quicksand_600SemiBold,
-  Quicksand_700Bold,
-} from "@expo-google-fonts/quicksand";
 import appTheme from "./src/theme";
 import Root from "./src/navigations/Root";
 
-SplashScreen.preventAutoHideAsync();
 export default function App() {
-  let [fontsLoaded] = useFonts({
-    Quicksand_300Light,
-    Quicksand_400Regular,
-    Quicksand_500Medium,
-    Quicksand_600SemiBold,
-    Quicksand_700Bold,
-  });
 
+  // TODO: Handle Temporary. Remove when nativebase lib fix this error
   useEffect(() => {
-    if (fontsLoaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [fontsLoaded]);
+    LogBox.ignoreLogs(['In React 18, SSRProvider is not necessary and is a noop. You can remove it from your app.']);
+  }, []);
 
-  if (!fontsLoaded) {
-    return null;
-  }
   return (
     <NativeBaseProvider theme={appTheme}>
       <Provider store={store}>
