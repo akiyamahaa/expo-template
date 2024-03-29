@@ -2,8 +2,8 @@ import React from "react";
 import { StyleSheet } from "react-native";
 import { AlertDialog, Button, Center } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../store";
-import { removeError } from "../store/error.reducer";
+import { RootState } from "../../store";
+import { removeError } from "../../store/error.reducer";
 
 const ErrorOverlay = () => {
   const error = useSelector((state: RootState) => state.error.error);

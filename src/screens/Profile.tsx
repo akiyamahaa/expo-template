@@ -3,14 +3,14 @@ import React from 'react'
 
 type Props = {}
 
-const Quiz = (props: Props) => {
+const Profile = (props: Props) => {
   return (
     <View>
-      <Text>Quiz</Text>
+      <Text>Profile</Text>
     </View>
   )
 }
 
-export default Quiz
+export default Profile
 
 const styles = StyleSheet.create({})

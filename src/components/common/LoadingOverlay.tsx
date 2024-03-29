@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import React from "react";
 import { Center, HStack, Heading, Spinner } from "native-base";
-import { RootState, useAppSelector } from "../store";
+import { RootState, useAppSelector } from "../../store";
 
 const LoadingOverlay = () => {
   const loading = useAppSelector((state: RootState) => state.loading.isLoading);

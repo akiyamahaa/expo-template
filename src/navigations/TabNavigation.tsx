@@ -6,8 +6,9 @@ import { Box, Text, VStack, useTheme } from "native-base";
 import { BottomTabsParams } from "./config";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import { useNavigation } from "@react-navigation/native";
-import Quiz from "../screens/Quiz";
+import Quizz from "../screens/Quizz";
 import Practice from "../screens/Practice";
+import Profile from "../screens/Profile";
 
 const Tab = createBottomTabNavigator<BottomTabsParams>();
 
@@ -57,10 +58,10 @@ export const TabData: ITabData[] = [
   },
   {
     id: 2,
-    tabName: 'Quiz',
+    tabName: 'Quizz',
     title: "Trắc nghiệm",
     iconName: 'apps',
-    component: Quiz,
+    component: Quizz,
   },
   {
     id: 3,
@@ -68,6 +69,13 @@ export const TabData: ITabData[] = [
     title: "Luyện tập",
     iconName: 'bulb',
     component: Practice,
+  },
+  {
+    id: 4,
+    tabName: 'Profile',
+    title: "Profile",
+    iconName: 'person',
+    component: Profile,
   },
 ]
 

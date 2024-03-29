@@ -1,13 +1,16 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
+import { Box } from 'native-base'
+import SlideImage from '../components/home/SlideImage'
+import { headerSlideData } from '../db/slide-data'
 
 type Props = {}
 
 const Home = (props: Props) => {
   return (
-    <View>
-      <Text>Home</Text>
-    </View>
+    <Box flex={1}>
+      <SlideImage data={headerSlideData} />
+    </Box>
   )
 }
 
