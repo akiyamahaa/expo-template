@@ -1,9 +1,9 @@
 import React from "react";
 import { StyleSheet } from "react-native";
-import { AlertDialog, Button, Center } from "native-base";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../store";
 import { removeError } from "../../store/error.reducer";
+import { AlertDialog } from "@gluestack-ui/themed";
 
 const ErrorOverlay = () => {
   const error = useSelector((state: RootState) => state.error.error);
@@ -17,7 +17,7 @@ const ErrorOverlay = () => {
       isOpen={!!error}
       onClose={onClose}
     >
-      <AlertDialog.Content>
+      {/* <AlertDialog.Content>
         <AlertDialog.Header color="danger" alignItems={"center"}>
           {error?.title}
         </AlertDialog.Header>
@@ -37,7 +37,7 @@ const ErrorOverlay = () => {
             </Button>
           </Button.Group>
         </AlertDialog.Footer>
-      </AlertDialog.Content>
+      </AlertDialog.Content> */}
     </AlertDialog>
   );
 };

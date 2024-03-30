@@ -1,6 +1,6 @@
 import { Dimensions, StyleSheet, Text, Platform, StatusBar } from "react-native";
 import React from "react";
-import { Image, View } from "native-base";
+import { Image, View } from "@gluestack-ui/themed";
 import { useRoute } from "@react-navigation/native";
 import { practiceData } from "../db/practice";
 

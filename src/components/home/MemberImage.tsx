@@ -1,6 +1,6 @@
 import { ImageSourcePropType, StyleSheet } from "react-native";
 import React from "react";
-import { Image, Text, View } from "native-base";
+import { Box, Image, Text } from "@gluestack-ui/themed";
 
 export interface MemberImageProps {
   image: ImageSourcePropType;
@@ -12,14 +12,14 @@ export default function MemberImage(props: MemberImageProps) {
   const { image, name, wrapperStyle } = props;
 
   return (
-    <View style={[styles.wrapper, wrapperStyle]}>
-      <Image source={image} width="100%" alt="Animal" />
+    <Box rounded={'$2xl'} overflow="hidden" height={'$56'}>
+      <Image source={image} w='$full' alt="Animal" h={'$full'} />
       {name && (
-        <View style={styles.box}>
+        <Box style={styles.box}>
           <Text bold>{name}</Text>
-        </View>
+        </Box>
       )}
-    </View>
+    </Box>
   );
 }
 

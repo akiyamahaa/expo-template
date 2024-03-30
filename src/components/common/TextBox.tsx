@@ -3,9 +3,9 @@ import {
   Text,
   TouchableOpacity,
   TouchableOpacityProps,
-  View,
 } from "react-native";
 import React from "react";
+import { Box } from "@gluestack-ui/themed";
 
 export enum EStatus {
   CORRECT,
@@ -17,13 +17,14 @@ export enum EStatus {
 export interface TextBoxProps extends TouchableOpacityProps {
   status: EStatus;
   content: string;
+  next:boolean;
 }
 
 const TextBox = (props: TextBoxProps) => {
   const { status, content, style, ...rest } = props;
   let extraBox = {};
   let extraText = {};
-  
+
   switch (status) {
     case EStatus.CORRECT:
       extraBox = styles.correctBox;
@@ -43,10 +44,10 @@ const TextBox = (props: TextBoxProps) => {
       break;
   }
   return (
-    <TouchableOpacity style={[styles.button, style]} {...rest}>
-      <View style={[styles.box, extraBox]}>
+    <TouchableOpacity style={[styles.button, style]} {...rest} disabled={props.next}>
+      <Box w={'$full'} style={[styles.box, extraBox]}>
         <Text style={[styles.text, extraText]}>{content}</Text>
-      </View>
+      </Box>
     </TouchableOpacity>
   );
 };
@@ -58,7 +59,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   box: {
-    width: "70%",
+    // width: "70%",
     height: 41,
     backgroundColor: "#FFFFFF",
     borderRadius: 10,

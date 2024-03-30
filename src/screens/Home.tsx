@@ -1,6 +1,6 @@
 import { StyleSheet, Text, View } from 'react-native'
 import React from 'react'
-import { Box } from 'native-base'
+import { Box } from '@gluestack-ui/themed'
 import SlideImage from '../components/home/SlideImage'
 import { headerSlideData } from '../db/slide-data'
 

@@ -1,9 +1,9 @@
 import { Dimensions, StyleSheet, } from 'react-native'
 import React, { useState } from 'react'
-import { Box, HStack } from 'native-base'
+import { Box, HStack, VStack } from '@gluestack-ui/themed'
 import MemberImage, { MemberImageProps } from './MemberImage';
 import Carousel from "react-native-snap-carousel";
-
+import { useToken } from '@gluestack-ui/themed';
 export interface SlideProps {
   data: MemberImageProps[];
 }
@@ -14,7 +14,7 @@ const SlideImage = (props: SlideProps) => {
   const { data, ...rest } = props;
   const [slideIndex, setSlideIndex] = useState(0);
   return (
-    <Box alignItems={'center'}>
+    <VStack alignItems={'center'} gap={'$2'}>
       <Carousel
         data={data}
         renderItem={({ item, index }) => <MemberImage {...item} key={item.name ? item.name : `item${index}`} />}
@@ -28,16 +28,16 @@ const SlideImage = (props: SlideProps) => {
       <HStack justifyContent="space-around" width={100}>
         {data.map((_, i) => (
           <Box
-            width={3}
-            height={3}
+            width={'$2'}
+            height={'$2'}
             marginTop={2}
             borderRadius={100}
-            bg={i == slideIndex ? "#3D7944" : "gray.600"}
+            bg={i == slideIndex ? "#3D7944" : "$blueGray600"}
             key={i}
           />
         ))}
       </HStack>
-    </Box>
+    </VStack>
   )
 }
 

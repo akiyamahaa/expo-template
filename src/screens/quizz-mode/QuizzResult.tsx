@@ -1,8 +1,8 @@
-import { Dimensions, StyleSheet, Text, Platform, StatusBar } from "react-native";
+import { Dimensions, StyleSheet, Platform, StatusBar, TouchableOpacity } from "react-native";
 import React from "react";
-import { Image, View } from "native-base";
-import { useRoute } from "@react-navigation/native";
-import { quizzData } from "../db/quizz";
+import { Box, Text, View } from "@gluestack-ui/themed";
+import { useNavigation, useRoute } from "@react-navigation/native";
+import { quizzData } from "../../db/quizz";
 
 const show: { [key: string]: string } = {
   easy: "Easy",
@@ -10,22 +10,29 @@ const show: { [key: string]: string } = {
   hard: "Hard",
 };
 
-const QuizzHome = () => {
+const QuizzResult = () => {
   const route = useRoute<any>();
   const level: string = route.params.level ? route.params.level : "easy";
+  const navigation = useNavigation<any>();
 
   return (
-    <View style={styles.bg}>
+    <Box flex={1} mt={24} alignItems="center" paddingHorizontal={'$12'}>
       {Platform.OS == "android" && <StatusBar barStyle="light-content" />}
-      <View height={Platform.OS == "android" ? 0 : 44} bg="#3D7944" />
-      <Text style={styles.text__main}>ZOODY'S QUIZ</Text>
+      <Text
+        color="#3D7944"
+        style={styles.text__main}>ZOODY'S QUIZ</Text>
       <Text style={styles.text__level}>Level: {show[level]}</Text>
-      <View style={styles.container}>
+      <Box w={'$full'}
+        borderWidth={0.2}
+        borderColor="#3D7944"
+        padding={'$4'}
+        gap={16}
+        alignItems="center" rounded={'$lg'}>
         <Text style={styles.text__comment}>GREAT JOB</Text>
         <Text style={styles.text__score}>Your score</Text>
         <View style={styles.box__score}>
           <View style={[styles.ques, styles.ques__total]}>
-            <Text style={styles.ques__num}>{quizzData[level].length}</Text>
+            <Text style={styles.ques__num}>{route.params.length}</Text>
             <Text>question</Text>
           </View>
           <View style={[styles.ques, styles.ques__true]}>
@@ -36,62 +43,41 @@ const QuizzHome = () => {
           </View>
           <View style={[styles.ques, styles.ques__false]}>
             <Text style={[styles.ques__num, styles.text__white]}>
-              {quizzData[level].length - route.params.point}
+              {route.params.length - route.params.point}
             </Text>
             <Text style={styles.text__white}>false</Text>
           </View>
         </View>
-      </View>
-
-      <Image
-        source={require("../../assets/images/quizresult-bg.png")}
-        width={Math.round(Dimensions.get("screen").height * 0.25)}
-        height={Math.round(Dimensions.get("screen").height * 0.25)}
-        alt="quizresult-bg"
-        position="absolute"
-        resizeMode="stretch"
-        bottom="3"
-        right="0"
-      />
-    </View>
+        <TouchableOpacity onPress={() => navigation.navigate('Quizz')} >
+          <Box bgColor="$success100" padding={'$4'} rounded={'$2xl'}>
+            <Text>
+              Continue to learn
+            </Text>
+          </Box>
+        </TouchableOpacity>
+      </Box>
+    </Box >
   );
 };
 
-export default QuizzHome;
+export default QuizzResult;
 
 const styles = StyleSheet.create({
-  bg: {
-    width: "100%",
-    height: "100%",
-    backgroundColor: "#3D7944",
-    alignItems: "center",
-  },
   text__main: {
     fontSize: 30,
     fontWeight: "bold",
-    color: "#FFFFFF",
     marginTop: 50,
   },
   text__level: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#FFFFFF",
     marginTop: 5,
     marginBottom: 20,
-  },
-  container: {
-    width: "85%",
-    height: "50%",
-    backgroundColor: "#FFFFFF",
-    borderRadius: 80,
-    alignItems: "center",
-    justifyContent: "center",
   },
   text__comment: {
     fontSize: 40,
     fontWeight: "bold",
     color: "#3D7944",
-    marginTop: 20,
   },
   text__score: {
     fontSize: 20,
@@ -100,7 +86,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   box__score: {
-    flex: 1,
     flexDirection: "row",
     marginTop: 20,
   },

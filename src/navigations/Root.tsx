@@ -5,12 +5,11 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ErrorOverlay from "../components/common/ErrorOverlay";
 import LoadingOverlay from "../components/common/LoadingOverlay";
 import { RootStackParams } from "./config";
-import Home from "../screens/Home";
 import TabNavigation from "./TabNavigation";
-import QuizzResult from "../screens/QuizzResult";
-import QuizzHome from "../screens/QuizzHome";
-import PracticeHome from "../screens/PracticeHome";
+import QuizzResult from "../screens/quizz-mode/QuizzResult";
+import QuizzScreen from "../screens/quizz-mode/QuizzScreen";
 import PracticeResult from "../screens/PracticeResult";
+import PracticeScreen from "../screens/PracticeScreen";
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 
@@ -26,10 +25,62 @@ const Root = () => {
           }}
         >
           <Stack.Screen name="TabNavigation" component={TabNavigation} />
-          <Stack.Screen name="QuizzResult" component={QuizzResult} options={{ headerShown: false }} />
-          <Stack.Screen name="QuizzHome" component={QuizzHome} options={{ headerShown: false }} />
-          <Stack.Screen name="PracticeHome" component={PracticeHome} options={{ headerShown: false }} />
-          <Stack.Screen name="PracticeResult" component={PracticeResult} options={{ headerShown: false }} />
+          <Stack.Screen name="QuizzResult" component={QuizzResult}
+            options={{
+              headerShown: true,
+              title: "Kết quả trắc nghiệm",
+              headerBackTitleVisible: false,
+              headerStyle: {
+                backgroundColor: '#3E5076',
+              },
+              headerTitleStyle: {
+                color: "white",
+              },
+              headerTintColor: "white",
+            }}
+          />
+          <Stack.Screen name="QuizzScreen" component={QuizzScreen}
+            options={{
+              headerShown: true,
+              title: "Bài trắc nghiệm",
+              headerBackTitleVisible: false,
+              headerStyle: {
+                backgroundColor: '#3E5076',
+              },
+              headerTitleStyle: {
+                color: "white",
+              },
+              headerTintColor: "white",
+            }}
+          />
+          <Stack.Screen name="PracticeScreen" component={PracticeScreen}
+            options={{
+              headerShown: true,
+              title: "Bài thực hành",
+              headerBackTitleVisible: false,
+              headerStyle: {
+                backgroundColor: '#3E5076',
+              },
+              headerTitleStyle: {
+                color: "white",
+              },
+              headerTintColor: "white",
+            }}
+          />
+          <Stack.Screen name="PracticeResult" component={PracticeResult}
+            options={{
+              headerShown: true,
+              title: "Kết quủa thực hành",
+              headerBackTitleVisible: false,
+              headerStyle: {
+                backgroundColor: '#3E5076',
+              },
+              headerTitleStyle: {
+                color: "white",
+              },
+              headerTintColor: "white",
+            }}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     </>

@@ -2,11 +2,10 @@ import { ImageBackground, StyleSheet, TouchableOpacity } from "react-native";
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import Home from "../screens/Home";
-import { Box, Text, VStack, useTheme } from "native-base";
+import { Text, VStack, useStyled, useTheme } from "@gluestack-ui/themed";
 import { BottomTabsParams } from "./config";
 import Ionicons from "@expo/vector-icons/Ionicons";
-import { useNavigation } from "@react-navigation/native";
-import Quizz from "../screens/Quizz";
+import Quizz from "../screens/quizz-mode/Quizz";
 import Practice from "../screens/Practice";
 import Profile from "../screens/Profile";
 
@@ -19,6 +18,7 @@ interface ITabIcon {
 }
 const TabIcon = ({ focused, name, title }: ITabIcon) => {
   const { colors } = useTheme();
+  const styled = useStyled()
   return (
 
     <VStack alignItems={"center"}>
@@ -26,13 +26,13 @@ const TabIcon = ({ focused, name, title }: ITabIcon) => {
         name={name}
         size={20}
         color={
-          focused ? colors.background.primary : colors.coolGray[800]
+          focused ? "#3E5076" : "#B0B0B0"
         }
       />
       <Text
         fontSize={10}
-        fontWeight={400}
-        color={focused ? colors.text.primary : colors.coolGray[800]}
+        fontWeight={"$medium"}
+        color={focused ? "#3E5076" : "#B0B0B0"}
       >
         {title}
       </Text>
@@ -101,10 +101,10 @@ const TabNavigation = () => {
             headerShown: true,
             title: tab.title,
             headerStyle: {
-              backgroundColor: colors.background.primary,
+              backgroundColor: "#3E5076",
             },
             headerTitleStyle: {
-              color: colors.white,
+              color: '#fff',
             },
           }}
         />

@@ -1,8 +1,8 @@
 export type RootStackParams = {
   TabNavigation: undefined;
   QuizzResult: undefined;
-  QuizzHome: undefined;
-  PracticeHome: undefined;
+  QuizzScreen: undefined;
+  PracticeScreen: undefined;
   PracticeResult: undefined;
 };
 

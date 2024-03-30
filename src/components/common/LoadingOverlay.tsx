@@ -1,7 +1,7 @@
 import { StyleSheet } from "react-native";
 import React from "react";
-import { Center, HStack, Heading, Spinner } from "native-base";
 import { RootState, useAppSelector } from "../../store";
+import { Center, HStack } from "@gluestack-ui/themed";
 
 const LoadingOverlay = () => {
   const loading = useAppSelector((state: RootState) => state.loading.isLoading);
@@ -9,12 +9,12 @@ const LoadingOverlay = () => {
   return (
     loading && (
       <Center flex={1} style={styles.container}>
-        <HStack space={2} justifyContent="center">
+        {/* <HStack space={2} justifyContent="center">
           <Spinner accessibilityLabel="Loading posts" color={"primary.Main"} />
           <Heading color={"primary.Main"} fontSize="md">
             Loading
           </Heading>
-        </HStack>
+        </HStack> */}
       </Center>
     )
   );

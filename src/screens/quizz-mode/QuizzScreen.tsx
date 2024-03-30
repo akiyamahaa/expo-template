@@ -1,25 +1,11 @@
-import { StyleSheet, Text, Dimensions, Platform, Image, StatusBar } from "react-native";
-import { Button, ScrollView, Stack, View } from "native-base";
+import { StyleSheet, Dimensions } from "react-native";
+import { Button, Text, Image, Box, View } from "@gluestack-ui/themed";
 import React, { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
-import { quizzData } from "../db/quizz";
-import TextBox, { EStatus } from "../components/common/TextBox";
-
-const imgWidth = Math.round(0.8 * Dimensions.get("screen").width);
-
-const bgHeight = Math.round(((5 / 4) * imgWidth) / 6);
-
-interface LevelInfo {
-  text: string;
-  level: string;
-}
-
-const levels: LevelInfo[] = [
-  { text: "Easy", level: "easy" },
-  { text: "Medium", level: "medium" },
-  { text: "Hard", level: "hard" },
-];
+import { quizzData } from "../../db/quizz";
+import TextBox, { EStatus } from "../../components/common/TextBox";
+import { getRandomArray } from "../../utils/function";
 
 const show: { [key: string]: string } = {
   easy: "Easy",
@@ -36,14 +22,16 @@ const QuizzScreen = () => {
   const [next, setNext] = useState(false);
   const [point, setPoint] = useState(0);
 
+
   const route = useRoute<any>();
   const navigation = useNavigation<any>();
   const [currQues, setCurrQues] = useState(0);
   const level: string = route.params.level ? route.params.level : "easy";
-  const [img, setImg] = useState(quizzData[level][currQues].image);
+  const rdQuizzData = getRandomArray(quizzData[level], 4)
+  const [img, setImg] = useState(rdQuizzData[currQues].image);
 
   const onPress = (i: number) => () => {
-    const ans = quizzData[level][currQues].ans;
+    const ans = rdQuizzData[currQues].ans;
     const newStatus = [...status];
     for (let index = 0; index < newStatus.length; index++) {
       newStatus[index] = EStatus.DISABLE;
@@ -60,7 +48,7 @@ const QuizzScreen = () => {
   };
 
   const onNext = () => {
-    if (currQues < quizzData[level].length - 1) {
+    if (currQues < rdQuizzData.length - 1) {
       setCurrQues(currQues + 1);
       setNext(false);
 
@@ -68,41 +56,42 @@ const QuizzScreen = () => {
       for (let index = 0; index < newStatus.length; index++) {
         newStatus[index] = EStatus.NORMAL;
       }
-      setImg(quizzData[level][currQues + 1].image);
+      setImg(rdQuizzData[currQues + 1].image);
       setStatus(newStatus);
     } else {
-      navigation.navigate("QuizzHome", { level: level, point });
+      navigation.navigate("QuizzResult", { level: level, point, length: rdQuizzData.length });
     }
   };
 
   return (
-    <Stack style={{ height: "100%" }}>
-      {Platform.OS == "android" && <StatusBar barStyle="light-content" />}
-      <View height={Platform.OS == "android" ? 0 : 44} bg="#3D7944" />
-      <View style={styles.container}>
-        <Text style={styles.text_main}>ZOODY'S QUIZ</Text>
-        <Text style={styles.text_level}>Level: {show[level]}</Text>
-        <Image
-          style={{
-            width: imgWidth,
-            height: Math.round((159 / 290) * imgWidth),
-          }}
-          source={img}
-        // alt="Question"
-        />
-        <Text style={styles.text_ques}>{quizzData[level][currQues].ques}</Text>
-      </View>
-      <View>
-        {quizzData[level][currQues]["choose"].map((item, i) => (
+    <Box flex={1} alignItems="center" padding={'$8'}>
+      <Text style={styles.text_main}>ZOODY'S QUIZ</Text>
+      <Text style={styles.text_level}>Level {show[level]}</Text>
+      <Image
+        alt="img-ques"
+        w={'$full'}
+        rounded={'$lg'}
+        height={Math.round((159 / 290) * Math.round(0.8 * Dimensions.get("screen").width))}
+        source={img}
+      />
+      <Text
+        color="#757575"
+        fontWeight="700"
+        fontSize={'$lg'}
+        marginVertical={'$6'}
+        w={'$full'}
+      >{rdQuizzData[currQues].ques}</Text>
+      <Box w={'$full'} gap={12}>
+        {rdQuizzData[currQues].choose.map((item: string, i: number) => (
           <TextBox
-            key={item}
+            key={`${item}-${i}`}
             status={status[i]}
             onPress={onPress(i)}
             content={item}
-            style={styles.btn}
+            next={next}
           />
         ))}
-      </View>
+      </Box>
       <View
         style={{ height: 50, justifyContent: "center", marginVertical: 20 }}
         flexDirection="row"
@@ -121,20 +110,13 @@ const QuizzScreen = () => {
         </Button>
         {next && (
           <Button style={styles.btn__continue} onPress={onNext}>
-            {currQues === quizzData[level].length - 1 ? "Stop" : "Continue"}
+            <Text>
+              {currQues === rdQuizzData.length - 1 ? "Finish" : "Continue"}
+            </Text>
           </Button>
         )}
       </View>
-      <Image
-        style={{
-          width: "100%",
-          height: Math.round(((5 / 4) * imgWidth) / 6),
-          position: "absolute",
-          bottom: 0,
-        }}
-        source={require("../../assets/images/quiz-bg.png")}
-      />
-    </Stack>
+    </Box>
   );
 };
 
@@ -155,27 +137,6 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 20,
-  },
-  text_ques: {
-    maxWidth: "90%",
-    marginVertical: 30,
-    fontSize: 18,
-    fontWeight: "700",
-    color: "#757575",
-  },
-  box: {
-    width: "70%",
-    height: 41,
-    backgroundColor: "#3D7944",
-    justifyContent: "center",
-    alignItems: "center",
-    marginBottom: 20,
-  },
-  text: {
-    color: "#FFFFFF",
-  },
-  btn: {
-    marginBottom: 8,
   },
   btn__stop: {
     backgroundColor: "#FFFFFF",
