@@ -27,11 +27,10 @@ const QuizzScreen = () => {
   const navigation = useNavigation<any>();
   const [currQues, setCurrQues] = useState(0);
   const level: string = route.params.level ? route.params.level : "easy";
-  const rdQuizzData = getRandomArray(quizzData[level], 4)
-  const [img, setImg] = useState(rdQuizzData[currQues].image);
+  const [quizzes] = useState(getRandomArray(quizzData[level], 4))
 
   const onPress = (i: number) => () => {
-    const ans = rdQuizzData[currQues].ans;
+    const { ans } = quizzes[currQues];
     const newStatus = [...status];
     for (let index = 0; index < newStatus.length; index++) {
       newStatus[index] = EStatus.DISABLE;
@@ -47,8 +46,10 @@ const QuizzScreen = () => {
     setStatus(newStatus);
   };
 
+  
+
   const onNext = () => {
-    if (currQues < rdQuizzData.length - 1) {
+    if (currQues < quizzes.length - 1) {
       setCurrQues(currQues + 1);
       setNext(false);
 
@@ -56,10 +57,9 @@ const QuizzScreen = () => {
       for (let index = 0; index < newStatus.length; index++) {
         newStatus[index] = EStatus.NORMAL;
       }
-      setImg(rdQuizzData[currQues + 1].image);
       setStatus(newStatus);
     } else {
-      navigation.navigate("QuizzResult", { level: level, point, length: rdQuizzData.length });
+      navigation.navigate("QuizzResult", { level: level, point, length: quizzes.length });
     }
   };
 
@@ -72,7 +72,7 @@ const QuizzScreen = () => {
         w={'$full'}
         rounded={'$lg'}
         height={Math.round((159 / 290) * Math.round(0.8 * Dimensions.get("screen").width))}
-        source={img}
+        source={quizzes[currQues].image}
       />
       <Text
         color="#757575"
@@ -80,9 +80,9 @@ const QuizzScreen = () => {
         fontSize={'$lg'}
         marginVertical={'$6'}
         w={'$full'}
-      >{rdQuizzData[currQues].ques}</Text>
+      >{quizzes[currQues].ques}</Text>
       <Box w={'$full'} gap={12}>
-        {rdQuizzData[currQues].choose.map((item: string, i: number) => (
+        {quizzes[currQues].choose.map((item: string, i: number) => (
           <TextBox
             key={`${item}-${i}`}
             status={status[i]}
@@ -111,7 +111,7 @@ const QuizzScreen = () => {
         {next && (
           <Button style={styles.btn__continue} onPress={onNext}>
             <Text>
-              {currQues === rdQuizzData.length - 1 ? "Finish" : "Continue"}
+              {currQues === quizzes.length - 1 ? "Finish" : "Continue"}
             </Text>
           </Button>
         )}

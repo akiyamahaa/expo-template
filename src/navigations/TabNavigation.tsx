@@ -6,8 +6,9 @@ import { Text, VStack, useStyled, useTheme } from "@gluestack-ui/themed";
 import { BottomTabsParams } from "./config";
 import Ionicons from "@expo/vector-icons/Ionicons";
 import Quizz from "../screens/quizz-mode/Quizz";
-import Practice from "../screens/Practice";
+import Practice from "../screens/guess-word/Practice";
 import Profile from "../screens/Profile";
+import PuzzleScreen from "../screens/puzzle/PuzzleScreen";
 
 const Tab = createBottomTabNavigator<BottomTabsParams>();
 
@@ -54,7 +55,7 @@ export const TabData: ITabData[] = [
     tabName: 'Home',
     title: "Trang chủ",
     iconName: 'home',
-    component: Home,
+    component: PuzzleScreen,
   },
   {
     id: 2,

@@ -58,4 +58,5 @@
 git clone https://github.com/akiyamahaa/expo-template
 cd expo-tech-app
 yarn
+npx patch-package 
 yarn start

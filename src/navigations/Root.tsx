@@ -1,5 +1,5 @@
 import { StyleSheet } from "react-native";
-import React, { useEffect } from "react";
+import React, { } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import ErrorOverlay from "../components/common/ErrorOverlay";
@@ -8,8 +8,8 @@ import { RootStackParams } from "./config";
 import TabNavigation from "./TabNavigation";
 import QuizzResult from "../screens/quizz-mode/QuizzResult";
 import QuizzScreen from "../screens/quizz-mode/QuizzScreen";
-import PracticeResult from "../screens/PracticeResult";
-import PracticeScreen from "../screens/PracticeScreen";
+import PracticeResult from "../screens/guess-word/PracticeResult";
+import PracticeScreen from "../screens/guess-word/PracticeScreen";
 
 const Stack = createNativeStackNavigator<RootStackParams>();
 

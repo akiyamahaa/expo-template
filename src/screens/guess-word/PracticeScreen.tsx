@@ -2,16 +2,16 @@ import {
   StyleSheet,
   Text,
   Dimensions,
-  Platform,
-  StatusBar,
+  TouchableOpacity,
+
 } from "react-native";
-import { Box, Button, Image, ScrollView, View } from "@gluestack-ui/themed";
-import React, { useState } from "react";
+import { Box, Button, View } from "@gluestack-ui/themed";
+import React, { useRef, useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 import { useRoute } from "@react-navigation/native";
 import { QuizInput } from "react-native-quiz-input";
-import { EStatus } from "../components/common/CharacterBox";
-import { practiceData } from "../db/practice";
+import { EStatus } from "../../components/common/CharacterBox";
+import { practiceData } from "../../db/practice";
 
 const imgWidth = Math.round(0.8 * Dimensions.get("screen").width);
 
@@ -47,31 +47,24 @@ const PracticeScreen = () => {
   const [currQues, setCurrQues] = useState(0);
   const level: string = route.params && route.params.level ? route.params.level : "easy";
   const [correct, setCorrect] = useState<boolean | null>(null);
+  const [next, setNext] = useState(false);
 
-  const [typedWord, setTypedWord] = useState("");
+  const [practices] = useState(practiceData[level])
+
 
   const onChange = (data: any) => {
-    const ans = practiceData[level][currQues].ans;
-    const newStatus = [...status];
+    const ans = practices[currQues].ans;
     if (data.wordString.length == ans.length) {
       const ansText = ans.join("");
       setCorrect(ansText === data.wordString);
+      setNext(true)
     } else {
       setCorrect(null);
     }
   };
 
-  const onPress = (i: number) => () => {
-    const newStatus = [...status];
-    for (let index = 0; index < newStatus.length; index++) {
-      newStatus[index] = EStatus.NORMAL;
-    }
-    newStatus[i] = EStatus.CORRECT;
-    setStatus(newStatus);
-  };
-
   const onNext = () => {
-    if (currQues < practiceData[level].length - 1) {
+    if (currQues < practices.length - 1) {
       setCurrQues(currQues + 1);
       setPoint(point + 1);
       const newStatus = [...status];
@@ -86,35 +79,45 @@ const PracticeScreen = () => {
 
   return (
     <Box style={styles.container}>
-      {Platform.OS == "android" && <StatusBar barStyle="light-content" />}
       <View style={styles.header}>
         <Text style={styles.text_main}>PRACTICE WITH ZOODY</Text>
         <Text style={styles.text_level}>Level: {show[level]}</Text>
       </View>
       <View style={styles.main}>
         <Text style={styles.text__ques}>
-          {practiceData[level][currQues].ques}
+          {practices[currQues].ques}
         </Text>
       </View>
       <View style={styles.box__choose}>
         <QuizInput
           size="large"
           borderColor="#3D7944"
-          wordStructure={practiceData[level][currQues].ans.map((c) => true)}
+          wordStructure={practices[currQues].ans.map((c) => true)}
           onChange={onChange}
+          key={currQues}
         />
       </View>
-      <View style={{ width: "100%", alignItems: "center" }}>
+      <View
+        style={{ height: 50, justifyContent: "center", marginVertical: 20 }}
+        flexDirection="row"
+      >
         <Button
-          style={styles.btn}
-          key={level}
-          onPress={
-            onNext
-            //=> navigation.navigate("PracticeResultScreen", { level: level })
-          }
+          onPress={() => navigation.goBack()}
         >
-          <Text style={{ color: "#3D7944" }}>Continue</Text>
+          <Text
+            style={{
+            }}
+          >
+            Stop
+          </Text>
         </Button>
+        {next && (
+          <Button onPress={onNext}>
+            <Text>
+              {currQues === practices.length - 1 ? "Finish" : "Continue"}
+            </Text>
+          </Button>
+        )}
       </View>
       {correct != null && <Text>{correct ? "CORRECT" : "IN_CORRECT"}</Text>}
     </Box>

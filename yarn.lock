@@ -7595,6 +7595,11 @@ react-native-gesture-handler@^1.10.3:
     invariant "^2.2.4"
     prop-types "^15.7.2"
 
+react-native-picture-puzzle@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-picture-puzzle/-/react-native-picture-puzzle-1.0.0.tgz#3f4824ab7c089a9e01b124edb57daac4dfe0c5c2"
+  integrity sha512-2NzGOhE03uI7KdZsyV4syiMzp+GHNuL69w0RA9fufC5bLv00C3eSEqxT0WS2dMKtnDcsCiDU2KkZ2ISqW4SKrQ==
+
 react-native-quiz-input@^1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/react-native-quiz-input/-/react-native-quiz-input-1.0.5.tgz#880285bea2afc4f3933282d9a31c69dc812cfbfd"

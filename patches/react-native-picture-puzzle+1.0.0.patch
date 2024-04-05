@@ -1,0 +1,12 @@
+diff --git a/node_modules/react-native-picture-puzzle/dist/constants/isSquare.js b/node_modules/react-native-picture-puzzle/dist/constants/isSquare.js
+index 3d1bab1..281c6a9 100644
+--- a/node_modules/react-native-picture-puzzle/dist/constants/isSquare.js
++++ b/node_modules/react-native-picture-puzzle/dist/constants/isSquare.js
+@@ -7,5 +7,5 @@ exports["default"] = isSquare;
+ 
+ function isSquare(n) {
+   var i = Math.sqrt(n);
+-  return i >= 3 && Number.isInteger(i) && i * i === n;
++  return i >= 2 && Number.isInteger(i) && i * i === n;
+ }
+\ No newline at end of file

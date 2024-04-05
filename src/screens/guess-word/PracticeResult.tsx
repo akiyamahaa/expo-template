@@ -2,7 +2,7 @@ import { Dimensions, StyleSheet, Text, Platform, StatusBar } from "react-native"
 import React from "react";
 import { Image, View } from "@gluestack-ui/themed";
 import { useRoute } from "@react-navigation/native";
-import { practiceData } from "../db/practice";
+import { practiceData } from "../../db/practice";
 
 const show: { [key: string]: string } = {
   easy: "Easy",
@@ -42,17 +42,6 @@ const PracticeResult = () => {
           </View>
         </View>
       </View>
-
-      <Image
-        source={require("../../assets/images/crocodile-bg.png")}
-        width={Math.round(Dimensions.get("screen").height * 0.3)}
-        height={Math.round(Dimensions.get("screen").height * 0.3)}
-        alt="quizresult-bg"
-        position="absolute"
-        resizeMode="stretch"
-        bottom="3"
-        right="0"
-      />
     </View>
   );
 };
