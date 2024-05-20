@@ -2,12 +2,10 @@ import { Platform, StyleSheet } from "react-native";
 import { Provider } from "react-redux";
 import store from "./src/store";
 import Root from "./src/navigations/Root";
-import { Box, GluestackUIProvider, Text } from "@gluestack-ui/themed";
-import { config } from "@gluestack-ui/config";
 import { StatusBar } from "react-native";
-
+import { GluestackUIProvider } from "@gluestack-ui/themed";
+import { config } from "./config/gluestack-ui.config";
 export default function App() {
-
   return (
     <GluestackUIProvider config={config}>
       <Provider store={store}>
@@ -17,5 +15,4 @@ export default function App() {
     </GluestackUIProvider>
   );
 }
-
 const styles = StyleSheet.create({});
